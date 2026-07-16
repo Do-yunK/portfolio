@@ -21,7 +21,7 @@ body {
 .background {
     background: #6827b3;
     background: linear-gradient(180deg, 
-    rgba(51, 37, 89, 0.8) 0%, rgba(104, 39, 179, 0.8) 50%, rgba(51, 37, 89, 0.8) 100%);
+    rgba(35, 25, 62, 0.9) 0%, rgba(88, 32, 151, 0.8) 50%, rgba(35, 25, 62, 0.9) 100%);
     border: 2px solid black;
 }
 
@@ -32,7 +32,6 @@ div.transbox {
 }
 
 div.transbox p {
-    margin: 5%;
     font-weight: bold;
     color: white;
 }
@@ -45,4 +44,12 @@ h4,
 h5,
 h6 {
     color: white;
+}
+
+.profile-image {
+    width: min(220px, 100%);
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
 }
