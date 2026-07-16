@@ -1,4 +1,41 @@
-.row {
-    display: flex;
-    flex-wrap: wrap;
+.container {
+
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+body {
+    background-image: url('images/treebg.jpeg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+
+
+.background {
+background: #6827b3;
+background: linear-gradient(180deg, rgba(51, 37, 89, 0.6) 0%, rgba(104, 39, 179, 0.6) 50%, rgba(51, 37, 89, 0.6) 100%);    border: 2px solid black;
+}
+
+div.transbox {
+    margin: 60px;
+    background-color: rgba(18, 14, 25, 0.6);
+    border: 1px solid black;
+}
+
+div.transbox p {
+    margin: 5%;
+    font-weight: bold;
+    color: white;
+}
+
+h1,
+p,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: white;
 }
