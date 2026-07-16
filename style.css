@@ -5,22 +5,29 @@
 }
 
 body {
-    background-image: url('images/treebg.jpeg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
+    margin: 0;
+    min-height: 100dvh;
 }
 
-
-
+.bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
 .background {
-background: #6827b3;
-background: linear-gradient(180deg, rgba(51, 37, 89, 0.6) 0%, rgba(104, 39, 179, 0.6) 50%, rgba(51, 37, 89, 0.6) 100%);    border: 2px solid black;
+    background: #6827b3;
+    background: linear-gradient(180deg, 
+    rgba(51, 37, 89, 0.8) 0%, rgba(104, 39, 179, 0.8) 50%, rgba(51, 37, 89, 0.8) 100%);
+    border: 2px solid black;
 }
 
 div.transbox {
     margin: 60px;
-    background-color: rgba(18, 14, 25, 0.6);
+    background-color: rgba(18, 14, 25, 0.8);
     border: 1px solid black;
 }
 
