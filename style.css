@@ -1,0 +1,122 @@
+body {
+    margin: 0;
+    min-height: 100dvh;
+}
+
+/* Section spacing + anchor offset for the sticky nav */
+.section-spacing {
+    padding-block: 4rem;
+    scroll-margin-top: 4rem;
+}
+
+@media (min-width: 768px) {
+    .section-spacing {
+        padding-block: 5rem;
+    }
+}
+
+/* Cards: hover lift */
+.project-card,
+.casestudies-card {
+    border-radius: 0.75rem;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card:hover,
+.project-card:focus-within,
+.casestudies-card:hover,
+.casestudies-card:focus-within {
+    transform: translateY(-4px);
+    box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Card images */
+.casestudies-card .card-img-top {
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.project-card .card-img-top {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+/* Limit descriptions to 3 lines so cards stay even */
+.card-text-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Projects carousel (gap matches Bootstrap g-4 / gap-4 = 1.5rem) */
+.project-track {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    /* room for hover lift and shadow without shifting the cards */
+    margin-inline: -0.5rem;
+    padding-inline: 0.5rem;
+    scroll-padding-inline: 0.5rem;
+}
+
+.project-slide {
+    flex: 0 0 80%;
+    /* mobile: 1 card + a peek */
+    scroll-snap-align: start;
+}
+
+@media (min-width: 576px) {
+    .project-slide {
+        flex-basis: calc(50% - 0.75rem);
+    }
+
+    /* tablet: 2 cards */
+}
+
+@media (min-width: 992px) {
+    .project-slide {
+        flex-basis: calc(25% - 1.125rem);
+    }
+
+    /* desktop: 4 cards */
+}
+
+/* Floating image */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+.floating-img {
+    animation: float 4s ease-in-out infinite;
+    filter: drop-shadow(0 0.5rem 1rem rgba(0, 0, 0, 0.15));
+}
+
+/* Motion: respect reduced-motion settings */
+@media (prefers-reduced-motion: reduce) {
+
+    .project-card,
+    .casestudies-card {
+        transition: none;
+    }
+
+    .project-card:hover,
+    .project-card:focus-within,
+    .casestudies-card:hover,
+    .casestudies-card:focus-within {
+        transform: none;
+    }
+
+    .floating-img {
+        animation: none;
+    }
+}
