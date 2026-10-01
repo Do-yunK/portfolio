@@ -67,6 +67,14 @@ body {
     scroll-snap-align: start;
 }
 
+
+.casestudies-card .sideburn-image {
+    object-fit: contain;
+    background-color: #f8f9fa;
+}
+
+
+
 @media (min-width: 576px) {
     .project-slide {
         flex-basis: calc(50% - 0.75rem);
