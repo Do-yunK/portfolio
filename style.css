@@ -97,6 +97,21 @@ body {
   filter: drop-shadow(0 0.5rem 1rem rgba(0, 0, 0, 0.15));
 }
 
+.social-links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.social-links img {
+  display: block;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
 /* CARDS */
 
 .project-card,
@@ -218,4 +233,3 @@ body {
     animation: none;
   }
 }
-
