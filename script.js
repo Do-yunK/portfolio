@@ -1,6 +1,111 @@
 $(function () {
   const current = location.pathname.split('/').pop();
   const isHomePage = !current || current === 'index.html' || !current.includes('.');
+
+  // Loading Screen Controller with Monochrome Binary Code Waves
+  const $loader = $('#site-loader');
+  const canvas = document.getElementById('loaderCanvas');
+  let animId = null;
+  let resizeHandler = null;
+  let loaderDismissed = false;
+
+  if (canvas && canvas.getContext) {
+    const ctx = canvas.getContext('2d');
+    let width = 0;
+    let height = 0;
+    let grid = [];
+    const charSpacingX = 20;
+    const charSpacingY = 24;
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const resize = () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      const cols = Math.ceil(width / charSpacingX) + 1;
+      const rows = Math.ceil(height / charSpacingY) + 1;
+      grid = [];
+      for (let r = 0; r < rows; r++) {
+        const row = [];
+        for (let c = 0; c < cols; c++) {
+          row.push(Math.random() < 0.5 ? '1' : '0');
+        }
+        grid.push(row);
+      }
+    };
+
+    resizeHandler = resize;
+    resize();
+    window.addEventListener('resize', resizeHandler);
+
+    let lastFlip = 0;
+    const render = (time) => {
+      if (!ctx || loaderDismissed) return;
+
+      ctx.clearRect(0, 0, width, height);
+      ctx.font = '10px "Press Start 2P", "Courier New", monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      const rows = grid.length;
+      const cols = rows > 0 ? grid[0].length : 0;
+
+      // Occasional subtle bit-flip to simulate live machine execution
+      if (!prefersReducedMotion && time - lastFlip > 90 && rows > 0 && cols > 0) {
+        lastFlip = time;
+        for (let i = 0; i < 4; i++) {
+          const rr = Math.floor(Math.random() * rows);
+          const cc = Math.floor(Math.random() * cols);
+          grid[rr][cc] = grid[rr][cc] === '1' ? '0' : '1';
+        }
+      }
+
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const t = prefersReducedMotion ? 0 : time;
+
+      for (let r = 0; r < rows; r++) {
+        const baseY = r * charSpacingY;
+        for (let c = 0; c < cols; c++) {
+          const baseX = c * charSpacingX;
+
+          // Combined undulating code waves + subtle expanding pulse
+          const dist = Math.hypot(baseX - centerX, baseY - centerY);
+          const wave1 = Math.sin((baseX * 0.007) + (baseY * 0.004) - (t * 0.0022));
+          const wave2 = Math.cos((dist * 0.01) - (t * 0.0028));
+          const waveVal = (wave1 + wave2) * 0.5; // -1 to 1
+
+          // Low opacity range: subtle baseline 0.035 up to 0.20 peak
+          const alpha = 0.035 + Math.max(0, waveVal) * 0.165;
+
+          // Gentle vertical undulating ripple
+          const waveY = baseY + (prefersReducedMotion ? 0 : Math.sin((baseX * 0.012) + (t * 0.0018)) * 3);
+
+          ctx.fillStyle = `rgba(255, 255, 255, ${alpha.toFixed(3)})`;
+          ctx.fillText(grid[r][c], baseX, waveY);
+        }
+      }
+
+      if (!prefersReducedMotion) {
+        animId = requestAnimationFrame(render);
+      }
+    };
+
+    animId = requestAnimationFrame(render);
+  }
+
+  function dismissLoader() {
+    if (!$loader.length || loaderDismissed) return;
+    loaderDismissed = true;
+    if (animId) cancelAnimationFrame(animId);
+    if (resizeHandler) window.removeEventListener('resize', resizeHandler);
+    $loader.addClass('loaded');
+    setTimeout(() => $loader.remove(), 500);
+  }
+
+  if ($loader.length) {
+    setTimeout(dismissLoader, 3000); // Safety fallback timeout
+  }
+
   const fragments = [
     ['#site-header', 'header.html'],
     ...(isHomePage
@@ -30,8 +135,12 @@ $(function () {
       });
     });
 
-  Promise.all(fragments.map(loadFragment))
+  const minDisplay = new Promise((resolve) => setTimeout(resolve, 600));
+
+  Promise.all([minDisplay, ...fragments.map(loadFragment)])
     .then(() => {
+      dismissLoader();
+
       const $links = $('#site-header .nav-link');
       const setActive = ($link) => {
         $links.removeClass('active').removeAttr('aria-current');
@@ -108,7 +217,6 @@ $(function () {
 
       // Slot machine mini-game
       const slotSpin = document.getElementById('slotSpin');
-      const slotReset = document.getElementById('slotReset');
       const slotMsg = document.getElementById('slotMsg');
       const reels = [0, 1, 2].map((i) => document.getElementById('r' + i));
 
@@ -237,19 +345,6 @@ $(function () {
         };
 
         slotSpin.addEventListener('click', spin);
-        if (slotReset) {
-          slotReset.addEventListener('click', () => {
-            timers.forEach(clearInterval);
-            spinning = false;
-            slotSpin.disabled = false;
-            reels.forEach((r) => r.classList.remove('win-sparkle', 'spin'));
-            const defaultSymbol = SYMBOLS.find((s) => s.name === 'cherries') || SYMBOLS[0];
-            reels.forEach((r) => {
-              setReelSymbol(r, defaultSymbol);
-            });
-            slotMsg.textContent = 'Ready to spin!';
-          });
-        }
       }
     })
     .catch((error) => console.error('Failed to load page content.', error));
