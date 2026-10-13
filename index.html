@@ -31,12 +31,14 @@
 
 </head>
 
-<body>
+<body class="is-loading">
+
+  <!-- MONOCHROME BACKGROUND: CODE WAVES & PULSES -->
+  <canvas id="bgCanvas" class="bg-canvas" aria-hidden="true"></canvas>
+  <div class="bg-vignette" aria-hidden="true"></div>
 
   <!-- MONOCHROME HUD LOADING SCREEN -->
   <div id="site-loader" class="site-loader" aria-live="polite" aria-label="Loading site">
-    <canvas id="loaderCanvas" class="loader-canvas" aria-hidden="true"></canvas>
-    <div class="loader-mosaic-vignette" aria-hidden="true"></div>
     <div class="loader-minimal-brand">
       <img src="images/DOKI_2.png" alt="DOKI" class="loader-brand-img" width="120" height="120">
     </div>

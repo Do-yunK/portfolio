@@ -2,21 +2,38 @@ $(function () {
   const current = location.pathname.split('/').pop();
   const isHomePage = !current || current === 'index.html' || !current.includes('.');
 
-  // Loading Screen Controller with Monochrome Binary Code Waves
-  const $loader = $('#site-loader');
-  const canvas = document.getElementById('loaderCanvas');
-  let animId = null;
-  let resizeHandler = null;
-  let loaderDismissed = false;
+  // Persistent Body Background: Monochrome Binary Code Waves & Pulses
+  let canvas = document.getElementById('bgCanvas');
+  if (!canvas) {
+    canvas = document.createElement('canvas');
+    canvas.id = 'bgCanvas';
+    canvas.className = 'bg-canvas';
+    canvas.setAttribute('aria-hidden', 'true');
+    document.body.prepend(canvas);
+
+    const vignette = document.createElement('div');
+    vignette.className = 'bg-vignette';
+    vignette.setAttribute('aria-hidden', 'true');
+    document.body.prepend(vignette);
+  }
 
   if (canvas && canvas.getContext) {
     const ctx = canvas.getContext('2d');
     let width = 0;
     let height = 0;
     let grid = [];
-    const charSpacingX = 20;
-    const charSpacingY = 24;
+    let meemoSpots = new Set();
+    const charSpacingX = 22;
+    const charSpacingY = 26;
     const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Load Meemo image for background easter egg
+    const meemoImg = new Image();
+    meemoImg.src = 'images/Meemo.png';
+    let meemoLoaded = false;
+    meemoImg.onload = () => {
+      meemoLoaded = true;
+    };
 
     const resize = () => {
       width = canvas.width = window.innerWidth;
@@ -24,6 +41,8 @@ $(function () {
       const cols = Math.ceil(width / charSpacingX) + 1;
       const rows = Math.ceil(height / charSpacingY) + 1;
       grid = [];
+      meemoSpots.clear();
+
       for (let r = 0; r < rows; r++) {
         const row = [];
         for (let c = 0; c < cols; c++) {
@@ -31,20 +50,35 @@ $(function () {
         }
         grid.push(row);
       }
+
+      // Scatter a few subtle Meemo easter egg positions (~1% of slots, capped around 10-18 total)
+      const totalCells = rows * cols;
+      const easterEggCount = Math.max(4, Math.min(18, Math.floor(totalCells * 0.007)));
+      while (meemoSpots.size < easterEggCount && totalCells > 0) {
+        const rr = Math.floor(Math.random() * rows);
+        const cc = Math.floor(Math.random() * cols);
+        meemoSpots.add(`${rr},${cc}`);
+      }
     };
 
-    resizeHandler = resize;
     resize();
-    window.addEventListener('resize', resizeHandler);
+    window.addEventListener('resize', resize);
 
     let lastFlip = 0;
     const render = (time) => {
-      if (!ctx || loaderDismissed) return;
+      if (!ctx) return;
+
+      // Pause drawing if user switches tabs to conserve CPU / battery
+      if (document.hidden) {
+        requestAnimationFrame(render);
+        return;
+      }
 
       ctx.clearRect(0, 0, width, height);
       ctx.font = '10px "Press Start 2P", "Courier New", monospace';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#ffffff';
 
       const rows = grid.length;
       const cols = rows > 0 ? grid[0].length : 0;
@@ -68,36 +102,44 @@ $(function () {
         for (let c = 0; c < cols; c++) {
           const baseX = c * charSpacingX;
 
-          // Combined undulating code waves + subtle expanding pulse
+          // Undulating waves + subtle expanding radial pulse (slowed down for gentle drift)
           const dist = Math.hypot(baseX - centerX, baseY - centerY);
-          const wave1 = Math.sin((baseX * 0.007) + (baseY * 0.004) - (t * 0.0022));
-          const wave2 = Math.cos((dist * 0.01) - (t * 0.0028));
+          const wave1 = Math.sin((baseX * 0.007) + (baseY * 0.004) - (t * 0.0009));
+          const wave2 = Math.cos((dist * 0.01) - (t * 0.0011));
           const waveVal = (wave1 + wave2) * 0.5; // -1 to 1
 
           // Low opacity range: subtle baseline 0.035 up to 0.20 peak
           const alpha = 0.035 + Math.max(0, waveVal) * 0.165;
+          const waveY = baseY + (prefersReducedMotion ? 0 : Math.sin((baseX * 0.012) + (t * 0.0007)) * 3);
 
-          // Gentle vertical undulating ripple
-          const waveY = baseY + (prefersReducedMotion ? 0 : Math.sin((baseX * 0.012) + (t * 0.0018)) * 3);
+          ctx.globalAlpha = alpha;
 
-          ctx.fillStyle = `rgba(255, 255, 255, ${alpha.toFixed(3)})`;
-          ctx.fillText(grid[r][c], baseX, waveY);
+          // Render Meemo easter egg or binary digit
+          if (meemoLoaded && meemoSpots.has(`${r},${c}`)) {
+            const size = 26;
+            ctx.drawImage(meemoImg, baseX - size / 2, waveY - size / 2, size, size);
+          } else {
+            ctx.fillText(grid[r][c], baseX, waveY);
+          }
         }
       }
 
       if (!prefersReducedMotion) {
-        animId = requestAnimationFrame(render);
+        requestAnimationFrame(render);
       }
     };
 
-    animId = requestAnimationFrame(render);
+    requestAnimationFrame(render);
   }
+
+  // Loading Screen Controller
+  const $loader = $('#site-loader');
+  let loaderDismissed = false;
 
   function dismissLoader() {
     if (!$loader.length || loaderDismissed) return;
     loaderDismissed = true;
-    if (animId) cancelAnimationFrame(animId);
-    if (resizeHandler) window.removeEventListener('resize', resizeHandler);
+    $('body').removeClass('is-loading');
     $loader.addClass('loaded');
     setTimeout(() => $loader.remove(), 500);
   }
@@ -213,6 +255,21 @@ $(function () {
         track.addEventListener('scroll', updateButtons, { passive: true });
         window.addEventListener('resize', updateButtons);
         updateButtons();
+      }
+
+      // Profile image cross-fader (smooth layered transitions)
+      const fader = document.getElementById('profileFader');
+      if (fader) {
+        const slides = Array.from(fader.querySelectorAll('.profile-slide'));
+        if (slides.length > 1) {
+          let currentIndex = 0;
+          setInterval(() => {
+            const nextIndex = (currentIndex + 1) % slides.length;
+            slides[currentIndex].classList.remove('active');
+            slides[nextIndex].classList.add('active');
+            currentIndex = nextIndex;
+          }, 3600);
+        }
       }
 
       // Slot machine mini-game
