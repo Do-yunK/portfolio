@@ -614,9 +614,15 @@ body.is-loading #projects-section {
   background: #000;
 }
 
+.project-card .card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
 .project-status {
-  display: inline-block;
-  margin-top: 0.75rem;
+  align-self: flex-start;
+  margin-top: auto;
   padding: 0.2rem 0.45rem;
   border: 1px solid #363b42;
   color: #b0b0b0;
