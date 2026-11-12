@@ -4,6 +4,7 @@ $(function () {
 
   const backgroundVideo = document.getElementById('lower-background');
   if (backgroundVideo) {
+    backgroundVideo.playbackRate = 0.65;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const updateBackgroundMotion = () => {
       if (reducedMotion.matches) {
@@ -73,7 +74,7 @@ $(function () {
         $link.addClass('active').attr('aria-current', 'page');
       };
 
-      // Other pages: highlight the link matching the page (e.g. skills.html)
+      // Other pages: highlight the link matching the page
       if (!isHomePage) {
         $links.each(function () {
           if ($(this).attr('href') === current) setActive($(this));
@@ -82,7 +83,7 @@ $(function () {
       }
 
       // Home page: highlight the link for section in view
-      const sectionIds = ['intro', 'casestudies', 'skills', 'projects'];
+      const sectionIds = ['intro', 'casestudies', 'projects'];
       const sections = sectionIds
         .map((id) => document.getElementById(id))
         .filter(Boolean);
