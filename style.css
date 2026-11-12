@@ -123,6 +123,33 @@ body {
   display: block;
 }
 
+.wip-bubble {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.5rem;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid #66c0f4;
+  border-radius: 4px;
+  background: #101113;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.wip-bubble::after {
+  content: "";
+  position: absolute;
+  right: 0.5rem;
+  bottom: -0.45rem;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-right: 1px solid #66c0f4;
+  border-bottom: 1px solid #66c0f4;
+  background: #101113;
+  transform: rotate(45deg);
+}
+
 /* INTRO */
 
 .portfolio-container {
@@ -313,7 +340,7 @@ body {
 }
 
 .redesign-pain-points::before {
-  top: -3rem;
+  top: 3rem;
   right: min(-3rem, calc((1100px - 100vw) / 2 - 1rem));
   background-image: url("images/Switch.png");
 }
@@ -583,7 +610,18 @@ body.is-loading #projects-section {
 }
 
 .project-card .respotify-thumbnail {
-  object-position: right center;
+  object-fit: contain;
+  background: #000;
+}
+
+.project-status {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.2rem 0.45rem;
+  border: 1px solid #363b42;
+  color: #b0b0b0;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
 }
 
 .project-preview-trigger {

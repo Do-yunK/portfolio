@@ -134,12 +134,14 @@ $(function () {
       if (projectPreview) {
         document.body.append(projectPreview);
         const previewImage = projectPreview.querySelector('img');
+        const respotifyGallery = document.getElementById('respotifyPreviewGallery');
         const hironoGallery = document.getElementById('hironoPreviewGallery');
         const keepsakeGallery = document.getElementById('keepsakePreviewGallery');
         projectPreview.addEventListener('show.bs.modal', (event) => {
           const trigger = event.relatedTarget;
           previewImage.src = trigger.dataset.previewSrc;
           previewImage.alt = trigger.dataset.previewAlt;
+          respotifyGallery.hidden = trigger.dataset.previewGallery !== 'respotify';
           hironoGallery.hidden = trigger.dataset.previewGallery !== 'hirono';
           keepsakeGallery.hidden = trigger.dataset.previewGallery !== 'keepsake';
         });
