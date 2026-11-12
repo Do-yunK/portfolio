@@ -130,6 +130,21 @@ $(function () {
       const nextBtn = document.getElementById('projNext');
       const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+      const projectPreview = document.getElementById('projectPreview');
+      if (projectPreview) {
+        document.body.append(projectPreview);
+        const previewImage = projectPreview.querySelector('img');
+        const hironoGallery = document.getElementById('hironoPreviewGallery');
+        const keepsakeGallery = document.getElementById('keepsakePreviewGallery');
+        projectPreview.addEventListener('show.bs.modal', (event) => {
+          const trigger = event.relatedTarget;
+          previewImage.src = trigger.dataset.previewSrc;
+          previewImage.alt = trigger.dataset.previewAlt;
+          hironoGallery.hidden = trigger.dataset.previewGallery !== 'hirono';
+          keepsakeGallery.hidden = trigger.dataset.previewGallery !== 'keepsake';
+        });
+      }
+
       if (track && prevBtn && nextBtn) {
         const scrollTrack = (direction) =>
           track.scrollBy({ left: direction * track.clientWidth * 0.8, behavior: smooth ? 'smooth' : 'auto' });

@@ -21,7 +21,7 @@
 <body>
     <div id="site-header"></div>
 
-    <section id="case-study-1" class="bg-light section-spacing case-study-detail">
+    <section id="case-study-1" class="bg-light section-spacing case-study-detail redesign-case-study">
         <div class="container portfolio-container">
             <div class="portfolio-section-heading">
                 <h2>Benny's Hub</h2>
@@ -34,6 +34,13 @@
                     <article class="intro-card h-100">
                         <h3 class="h5 fw-bold text-white">Project Description</h3>
                         <p class="mb-0">Benny's Hub is an AAC interface redesign developed around Benny's communication needs and associated with the Narbe Foundation. I led the design and development of my version from concept through final presentation, exploring accessible, efficient interactions for adults with progressive disabilities. The project was demonstrated with an Arduino Uno and physical head-switch setup and showcased at YES Show 2026.</p>
+                        <div class="d-flex flex-wrap align-items-center gap-4 mt-4" aria-label="Project skills">
+                            <span class="d-inline-flex align-items-center gap-2"><i class="bi bi-code-slash" aria-hidden="true"></i> FRONTEND</span>
+                            <span class="d-inline-flex align-items-center gap-2"><i class="bi bi-cpu" aria-hidden="true"></i> ARDUINO UNO</span>
+                            <span class="d-inline-flex align-items-center gap-2"><i class="bi bi-easel" aria-hidden="true"></i> UX/UI</span>
+                            <span class="d-inline-flex align-items-center gap-2"><i class="bi bi-bezier2" aria-hidden="true"></i> PROTOTYPING</span>
+                            <span class="d-inline-flex align-items-center gap-2"><img src="images/Figma.png" alt="" width="24" height="24"> FIGMA</span>
+                        </div>
                     </article>
                 </div>
 
@@ -60,26 +67,30 @@
                     </article>
                 </div>
 
-                <div class="col-12 col-md-4">
-                    <article class="intro-card h-100">
-                        <h3 class="h5 fw-bold text-white">01 — Navigation Barriers</h3>
-                        <p>Conventional touch interactions may not work for every person or situation.</p>
-                        <p class="mb-0"><strong>Design opportunity:</strong> Explore alternative ways to navigate and select, including scanning and head-switch interaction.</p>
-                    </article>
-                </div>
-                <div class="col-12 col-md-4">
-                    <article class="intro-card h-100">
-                        <h3 class="h5 fw-bold text-white">02 — Interaction Load</h3>
-                        <p>Finding frequently used phrases across categories can require unnecessary effort.</p>
-                        <p class="mb-0"><strong>Design opportunity:</strong> Make phrase categories and common communication tools easier to access.</p>
-                    </article>
-                </div>
-                <div class="col-12 col-md-4">
-                    <article class="intro-card h-100">
-                        <h3 class="h5 fw-bold text-white">03 — Changing Needs</h3>
-                        <p>Progressive disabilities can change how a person interacts with technology over time.</p>
-                        <p class="mb-0"><strong>Design opportunity:</strong> Preserve a familiar experience while exploring adaptable input.</p>
-                    </article>
+                <div class="col-12">
+                    <div class="row g-4 redesign-pain-points">
+                        <div class="col-12 col-md-4">
+                            <article class="intro-card h-100">
+                                <h3 class="h5 fw-bold text-white">01 — Navigation Barriers</h3>
+                                <p>Conventional touch interactions may not work for every person or situation.</p>
+                                <p class="mb-0"><strong>Design opportunity:</strong> Explore alternative ways to navigate and select, including scanning and head-switch interaction.</p>
+                            </article>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <article class="intro-card h-100">
+                                <h3 class="h5 fw-bold text-white">02 — Interaction Load</h3>
+                                <p>Finding frequently used phrases across categories can require unnecessary effort.</p>
+                                <p class="mb-0"><strong>Design opportunity:</strong> Make phrase categories and common communication tools easier to access.</p>
+                            </article>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <article class="intro-card h-100">
+                                <h3 class="h5 fw-bold text-white">03 — Changing Needs</h3>
+                                <p>Progressive disabilities can change how a person interacts with technology over time.</p>
+                                <p class="mb-0"><strong>Design opportunity:</strong> Preserve a familiar experience while exploring adaptable input.</p>
+                            </article>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-12">
@@ -107,30 +118,35 @@
                     <article id="wireframes" class="intro-card h-100">
                         <h3 class="h5 fw-bold text-white">Interface Design</h3>
 
-                        <div class="wireframe-grid">
-                            <figure class="m-0">
-                                <a href="images/Dash.PNG">
-                                    <img src="images/Dash.PNG" class="case-study-feature-image"
-                                        alt="Volunteer dashboard with shift summaries and a sign-up link">
-                                </a>
-                                <figcaption class="small mt-2"><strong class="text-white">Dashboard</strong><br>Volunteer dashboard screen.</figcaption>
-                            </figure>
-
-                            <figure class="m-0">
-                                <a href="images/Allteams.PNG">
-                                    <img src="images/Allteams.PNG" class="case-study-feature-image"
-                                        alt="Team directory showing shift capacity and sign-up controls">
-                                </a>
-                                <figcaption class="small mt-2"><strong class="text-white">Team Directory</strong><br>Team directory and shift-capacity screen.</figcaption>
-                            </figure>
-
-                            <figure class="m-0">
-                                <a href="images/Shifts.PNG">
-                                    <img src="images/Shifts.PNG" class="case-study-feature-image"
-                                        alt="Shift schedule showing capacity, requirements, and volunteers">
-                                </a>
-                                <figcaption class="small mt-2"><strong class="text-white">Shift Schedule</strong><br>Shift schedule and volunteer sign-up screen.</figcaption>
-                            </figure>
+                        <div class="row g-4">
+                            <div class="col-12 col-md-6">
+                                <figure class="m-0">
+                                    <img src="images/KeyboardBefore.png" class="wireframe-image"
+                                        alt="Keyboard interface before the redesign" width="3024" height="1964" loading="lazy">
+                                    <figcaption class="small mt-2"><strong class="text-white">Keyboard — Before</strong></figcaption>
+                                </figure>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <figure class="m-0">
+                                    <img src="images/KeyboardAfter.png" class="wireframe-image"
+                                        alt="Keyboard interface after the redesign" width="3024" height="1670" loading="lazy">
+                                    <figcaption class="small mt-2"><strong class="text-white">Keyboard — After</strong></figcaption>
+                                </figure>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <figure class="m-0">
+                                    <img src="images/DefaultBoard.png" class="wireframe-image"
+                                        alt="Default phrase board showing communication categories" width="3024" height="1656" loading="lazy">
+                                    <figcaption class="small mt-2"><strong class="text-white">Default Board</strong></figcaption>
+                                </figure>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <figure class="m-0">
+                                    <img src="images/EmergencyBoard.png" class="wireframe-image"
+                                        alt="Emergency phrase board showing urgent communication options" width="3024" height="1654" loading="lazy">
+                                    <figcaption class="small mt-2"><strong class="text-white">Emergency Board</strong></figcaption>
+                                </figure>
+                            </div>
                         </div>
                     </article>
                 </div>
@@ -140,6 +156,23 @@
                         <h3 class="h5 fw-bold text-white">Bringing It Together</h3>
                         <p class="mb-0">The redesign explores accessible navigation, scanning, and visual selection feedback alongside a physical head-switch interaction. An Arduino Uno connected to a head-switch setup demonstrated how interaction could extend beyond a conventional touchscreen; this prototype does not imply every alternative input method is implemented.</p>
                     </article>
+                </div>
+
+                <div class="col-12">
+                    <figure class="yes-show-figure m-0">
+                        <figcaption class="yes-show-caption text-white">YES SHOW 2026</figcaption>
+                        <div class="yes-show-gallery">
+                            <img src="images/User1.PNG" class="yes-show-user-image"
+                                alt="Visitor trying the Benny's Hub head-switch at YES Show 2026"
+                                width="1320" height="2868" loading="lazy">
+                            <img src="images/User2.PNG" class="yes-show-user-image"
+                                alt="Visitor using the Benny's Hub head-switch at YES Show 2026"
+                                width="1320" height="2868" loading="lazy">
+                            <img src="images/User3.PNG" class="yes-show-user-image yes-show-user-image-group"
+                                alt="Visitors watching a Benny's Hub demonstration at YES Show 2026"
+                                width="1320" height="2868" loading="lazy">
+                        </div>
+                    </figure>
                 </div>
 
                 <div class="col-12">

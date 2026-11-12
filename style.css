@@ -111,8 +111,16 @@ body {
 }
 
 .navbar-brand {
+  display: flex;
+  align-items: center;
+  height: 72px;
+  overflow: hidden;
   padding: 0;
   margin-right: 0;
+}
+
+.navbar-brand img {
+  display: block;
 }
 
 /* INTRO */
@@ -260,6 +268,10 @@ body {
   background: #202328;
 }
 
+.case-study-cover.sideburn-image.case-study-black-background {
+  background: #000;
+}
+
 .intro-card {
   background: rgba(12, 13, 15, 0.94);
   border: 1px solid #303238;
@@ -274,6 +286,96 @@ body {
   object-fit: contain;
   margin-inline: auto;
   border: 1px solid #303238;
+}
+
+.redesign-case-study {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.redesign-pain-points {
+  position: relative;
+  isolation: isolate;
+}
+
+.redesign-pain-points::before,
+.redesign-case-study::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: clamp(300px, 45vw, 680px);
+  aspect-ratio: 3 / 4;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.redesign-pain-points::before {
+  top: -3rem;
+  right: min(-3rem, calc((1100px - 100vw) / 2 - 1rem));
+  background-image: url("images/Switch.png");
+}
+
+.redesign-case-study::after {
+  bottom: -5rem;
+  left: -9rem;
+  background-image: url("images/Arduino.png");
+  transform: rotate(4deg);
+}
+
+.yes-show-figure {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2rem);
+}
+
+.yes-show-caption {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-weight: 700;
+}
+
+.yes-show-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.5rem, 1.5vw, 1rem);
+  flex: 0 1 900px;
+  min-width: 0;
+}
+
+.yes-show-user-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: center 68%;
+  border: 1px solid #303238;
+}
+
+.yes-show-user-image-group {
+  object-position: center 55%;
+}
+
+@media (max-width: 575px) {
+  .yes-show-figure {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .yes-show-caption {
+    writing-mode: horizontal-tb;
+    transform: none;
+  }
+
+  .yes-show-gallery {
+    flex-basis: auto;
+    width: 100%;
+  }
 }
 
 .wireframe-grid {
@@ -477,6 +579,32 @@ body.is-loading #projects-section {
   aspect-ratio: 4 / 3;
   object-fit: cover;
   border-radius: 0;
+  border-bottom: 1px solid #303238;
+}
+
+.project-card .respotify-thumbnail {
+  object-position: right center;
+}
+
+.project-preview-trigger {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+}
+
+.project-preview-trigger:focus-visible {
+  outline: 2px solid #66c0f4;
+  outline-offset: 3px;
+}
+
+.project-preview-modal .modal-content {
+  background: #0c0d0f;
+  border: 1px solid #303238;
+}
+
+.project-preview-modal .modal-header {
   border-bottom: 1px solid #303238;
 }
 
