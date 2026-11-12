@@ -232,6 +232,11 @@ body {
   text-decoration: none;
 }
 
+.case-study-link {
+  font-family: "Bungee Hairline", system-ui, sans-serif;
+  font-weight: 400;
+}
+
 .portfolio-panel-body a:hover,
 .portfolio-panel-body a:focus-visible {
   color: #fff;
@@ -271,6 +276,18 @@ body {
   border: 1px solid #303238;
 }
 
+.wireframe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  gap: 1rem;
+}
+
+.wireframe-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .case-study-detail .intro-card {
   padding: clamp(1.25rem, 3vw, 2rem);
   overflow: hidden;
@@ -287,6 +304,7 @@ body {
   max-width: 70ch;
   line-height: 1.7;
 }
+
 
 .profile-img-container {
   display: flex;
@@ -878,4 +896,17 @@ body.is-loading #projects-section {
   
   /* Reset Snap */
   100% { transform: translateY(calc(-5 * var(--line-height))); }
+}
+
+.flow-scroll {
+  max-height: 70vh;
+  overflow-y: auto;
+  border: 1px solid #303238;
+  margin-top: 0.5rem;
+}
+
+.flow-scroll img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
